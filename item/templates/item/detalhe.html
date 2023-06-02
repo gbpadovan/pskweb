@@ -1,0 +1,86 @@
+{% extends 'core/base.html' %}
+
+{% block title %}       
+    {{ produto.nome }}
+{% endblock %}
+
+{% block content %}
+    <div class="px-6 py-6"><!-- blank div for layout purposes--></div>
+
+    <div class="grid grid-cols-5 gap-6">
+        <div class="col-span-3">
+            <img src="{{ produto.imagem.url }}" class="rounded-t-xl">
+        </div>
+
+        <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+            <h1 class="mb-6 text-2xl">{{ produto.nome }}</h1>
+            <p class="text-gray-500"><strong>Preço: </strong>{{ produto.preço }}</p>
+
+            {% if produto.marca %}
+                <p class="text-gray-500"><strong>Marca: </strong>{{ produto.marca }}</p>
+            {% endif %}
+
+            {% if produto.modelo %}
+                <p class="text-gray-500"><strong>Modelo: </strong>{{ produto.modelo }}</p>
+            {% endif %}
+
+            {% if produto.tamanho %}
+                <p class="text-gray-500"><strong>Tamanho: </strong>{{ produto.tamanho }}</p>
+            {% endif %}
+            
+            {% if produto.unid_por_embalagem %}
+                <p class="text-gray-500"><strong>Unid. por Embalagem: </strong>{{ produto.unid_por_embalagem }}</p>
+            {% endif %} 
+            
+            
+            
+            {% if request.user == produto.cadastrado_por %}
+                <div class="mt-6 p-6 bg-white rounded-xl">
+                    <p>Este é seu produto!</p>
+                    <a href="{% url 'item:edite_produto' produto.id %}" class="inline-block mt-6 px-6 py-3 font-semibold bg-yellow-500 text-white rounded-xl">Edite</a>
+                    <a href="{% url 'item:delete_produto' produto.id %}" class="inline-block mt-6 px-6 py-3 font-semibold bg-orange-500 text-white rounded-xl">Delete</a>
+                </div>
+            {% else %}
+                <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-red-700">Comprar Agora</a>
+                <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-red-700">Adicionar ao Carrinho</a>        
+            
+                <a href="{% url 'conversation:new' produto.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-blue-700">Contate o Vendedor</a>           
+            {% endif %}
+            
+        </div>
+    </div>
+
+    {% if produto.descrição %}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <p class="text-gray-700">
+            <strong class="text-gray-500">Descrição: </strong><br>
+            {{ produto.descrição }}
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Produtos relacionados:</h2>
+        
+        <div class="grid grid-cols-3 gap-3">
+            {% for produto in itens_relacionados %}
+                <div>
+                    <!-- item é app_name:-->            
+                    <a href="{% url 'item:detalhe' produto.id %}">
+
+                        <div>
+                            <img src="{{ produto.imagem.url }}" class="rounded-t-xl">
+                        </div>
+
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ produto.nome }}</h2>
+                            <p class="text-gray-500">Preço: {{ produto.preço }}</p>
+                        </div>
+                        
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,2 +1,6 @@
-# pskweb
-Marketplace website for automobile products
+# PSK Webste
+
+## Marketplace website for automobile products.
+
+* DATABASE: PostgreSQL instance on Railway
+* HOSTING: provided by Vercel

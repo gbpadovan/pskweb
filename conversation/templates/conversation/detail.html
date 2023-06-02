@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block title %}       
+    Conversa
+{% endblock %}
+
+{% block content %}
+    <div class="px-6 py-6"><!-- blank div for layout purposes--></div>
+    
+    <h1 class="mb-6 text-3xl">Conversa</h1>
+
+    <div class="space-y-6">
+        {% for message in conversation.messages.all %} <!--conversation.messages == ConversaMensagem.conversa (in models.py) It is a related_names-->
+            <div class="p-6 flex {% if message.criado_por == request.user %}bg-blue-100{% else %}bg-gray-100{% endif %} rounded-xl">              
+                <div>
+                    <p class="mb-4">
+                        <strong>{{ message.criado_por.username }}</strong> @ {{ message.criado_em }}
+                    </p>
+                    <p>{{ message.content }}</p>
+                </div>
+            </div>    
+        {% endfor %}
+    </div>
+
+<form method="post" action="{% url 'conversation:detail' conversation.id %}">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Enviar Mensagem</button>
+</form>
+
+{% endblock %}
