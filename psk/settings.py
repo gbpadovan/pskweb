@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,9 +83,10 @@ WSGI_APPLICATION = "psk.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+    'default':{
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'URL': os.getenv('POSTGRES_URL'),
         'NAME': os.getenv('PGNAME'),
         'USER': os.getenv('PGUSER'),
@@ -91,7 +95,6 @@ DATABASES = {
         'PORT': os.getenv('PGPORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -138,4 +141,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # OTHER
 
-USE_VERCEL = False
+USE_VERCEL = True

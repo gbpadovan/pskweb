@@ -1,4 +1,4 @@
-# PSK Webste
+# PSK Website
 
 ## Marketplace website for automobile products.
 
