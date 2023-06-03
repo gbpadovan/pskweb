@@ -1,14 +1,14 @@
 {
     "builds": [
       {
-        "src": "pskweb/wsgi.py",
+        "src": "psk/wsgi.py",
         "use": "@vercel/python"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "pskweb/wsgi.py"
+        "dest": "psk/wsgi.py"
       }
     ]
 }
