@@ -1,6 +1,5 @@
-from django.conf import settings            # when in local host (not in vercel)
-from django.conf.urls.static import static  # when in local host (not in vercel)
-
+from django.conf import settings           
+from django.conf.urls.static import static 
 from django.contrib import admin
 from django.urls import path, include
 
